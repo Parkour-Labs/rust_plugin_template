@@ -18,8 +18,8 @@ This template uses the following structure:
 - `packages/flutter_theprojectname`: contains the Dart code that defines the API of the plugin, and which calls into the native code using `dart:ffi`.
   - Platform folders (`android`, `ios`, `windows`, etc.): contains the build files for building and bundling the native code library with the platform application.
     - Android: Flutter -> Gradle (`build.gradle`) -> CMake (`CMakeLists.txt`) -> Cargo NDK -> Cargo
-    - iOS: Flutter -> CocoaPods(`*.podspec`) -> `build_script.sh` -> Cargo
-    - macOS: Flutter -> CocoaPods(`*.podspec`) -> `build_script.sh` -> Cargo
+    - iOS: Flutter -> CocoaPods (`*.podspec`) -> `build_script.sh` -> Cargo
+    - macOS: Flutter -> CocoaPods (`*.podspec`) -> `build_script.sh` -> Cargo
     - Linux: Flutter -> CMake (`CMakeLists.txt`) -> Cargo
     - Windows: Flutter -> CMake (`CMakeLists.txt`) -> Cargo
 
