@@ -4,16 +4,16 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Project-level configuration.
-project("flutter_theprojectname")
+project(flutter_theprojectname)
 
 # Invoke the build for native code.
-add_custom_target("theprojectname"
+add_custom_target(theprojectname
   ALL
-  WORKING_DIRECTORY "../../"
-  COMMAND "rustup target add x86_64-linux-android i686-linux-android aarch64-linux-android armv7-linux-androideabi"
-  COMMAND "cargo install cargo-ndk"
-  COMMAND "cargo ndk --output-dir ${LIBRARY_OUTPUT_DIRECTORY} --target x86_64-linux-android build --release"
-  COMMAND "cargo ndk --output-dir ${LIBRARY_OUTPUT_DIRECTORY} --target i686-linux-android build --release"
-  COMMAND "cargo ndk --output-dir ${LIBRARY_OUTPUT_DIRECTORY} --target aarch64-linux-android build --release"
-  COMMAND "cargo ndk --output-dir ${LIBRARY_OUTPUT_DIRECTORY} --target armv7-linux-androideabi build --release"
+  WORKING_DIRECTORY ../../
+  COMMAND rustup target add x86_64-linux-android i686-linux-android aarch64-linux-android armv7-linux-androideabi
+  COMMAND cargo install cargo-ndk
+  COMMAND cargo ndk --output-dir ${LIBRARY_OUTPUT_DIRECTORY} --target x86_64-linux-android build --release
+  COMMAND cargo ndk --output-dir ${LIBRARY_OUTPUT_DIRECTORY} --target i686-linux-android build --release
+  COMMAND cargo ndk --output-dir ${LIBRARY_OUTPUT_DIRECTORY} --target aarch64-linux-android build --release
+  COMMAND cargo ndk --output-dir ${LIBRARY_OUTPUT_DIRECTORY} --target armv7-linux-androideabi build --release
 )

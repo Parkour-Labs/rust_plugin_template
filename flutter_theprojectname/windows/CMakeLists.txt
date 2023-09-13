@@ -5,20 +5,21 @@
 cmake_minimum_required(VERSION 3.14)
 
 # Project-level configuration.
-project("flutter_theprojectname")
+project(flutter_theprojectname)
 
 # Invoke the build for native code.
-add_custom_target("theprojectname"
+add_custom_target(theprojectname
   ALL
-  WORKING_DIRECTORY "../../"
-  COMMAND "rustup target add x86_64-pc-windows-msvc i686-pc-windows-msvc aarch64-pc-windows-msvc"
-  COMMAND "cargo build --out-dir ${LIBRARY_OUTPUT_DIRECTORY} --target x86_64-pc-windows-msvc --release"
-  # COMMAND "cargo build --out-dir ${LIBRARY_OUTPUT_DIRECTORY} --target i686-pc-windows-msvc --release"
-  # COMMAND "cargo build --out-dir ${LIBRARY_OUTPUT_DIRECTORY} --target aarch64-pc-windows-msvc --release"
+  WORKING_DIRECTORY ../../
+  # COMMAND rustup target add x86_64-pc-windows-msvc i686-pc-windows-msvc aarch64-pc-windows-msvc
+  # COMMAND cargo build --target x86_64-pc-windows-msvc --release
+  # COMMAND cargo build --target i686-pc-windows-msvc --release
+  # COMMAND cargo build --target aarch64-pc-windows-msvc --release
+  COMMAND cargo build --release
 )
 
 # List of absolute paths to libraries that should be bundled with the plugin.
-set("flutter_theprojectname_bundled_libraries"
-  "${LIBRARY_OUTPUT_DIRECTORY}/theprojectname.dll"
+set(flutter_theprojectname_bundled_libraries
+  ../../target/release/theprojectname.dll
   PARENT_SCOPE
 )
