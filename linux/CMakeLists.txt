@@ -19,6 +19,6 @@ add_custom_target(theprojectname
 
 # List of absolute paths to libraries that should be bundled with the plugin.
 set(theprojectname_bundled_libraries
-  ${CMAKE_CURRENT_BINARY_DIR}/native/release/theprojectname.dll
+  ${CMAKE_CURRENT_BINARY_DIR}/native/release/libtheprojectname.so
   PARENT_SCOPE
 )
