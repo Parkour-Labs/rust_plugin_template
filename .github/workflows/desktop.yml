@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [ main ]
 
-name: Build and test (desktop platforms)
+name: desktop
 jobs:
   build:
     # See: https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
@@ -14,19 +14,19 @@ jobs:
         os: [ ubuntu-latest, macos-13, windows-latest ]
         include:
           - os: ubuntu-latest
-            build_command: flutter build linux --release --obfuscate --split-debug-info=symbols --verbose
+            build_command: flutter build linux --release --obfuscate --split-debug-info=symbols
             test_command: xvfb-run flutter test integration_test
             artifact_dir: build/linux
 
           - os: macos-13
-            build_command: flutter build macos --release --obfuscate --split-debug-info=symbols --verbose
+            build_command: flutter build macos --release --obfuscate --split-debug-info=symbols
             test_command: flutter test integration_test
-            artifact_dir: build/macos/Build/Products/Release
+            artifact_dir: build/macos
 
           - os: windows-latest
-            build_command: flutter build windows --release --obfuscate --split-debug-info=symbols --verbose
+            build_command: flutter build windows --release --obfuscate --split-debug-info=symbols
             test_command: flutter test integration_test
-            artifact_dir: build/windows/runner/Release
+            artifact_dir: build/windows
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -53,11 +53,9 @@ jobs:
 
       - run: flutter analyze
 
-      - run: ${{ matrix.build_command }}
-        working-directory: ${{ github.workspace }}/example
+      - run: cd example && ${{ matrix.build_command }}
 
-      - run: ${{ matrix.test_command }}
-        working-directory: ${{ github.workspace }}/example
+      - run: cd example && ${{ matrix.test_command }}
 
       - uses: actions/upload-artifact@v3
         with:
