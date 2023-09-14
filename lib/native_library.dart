@@ -10,7 +10,7 @@ DynamicLibrary _loadNativeLibrary() {
   final library = switch (defaultTargetPlatform) {
     TargetPlatform.android => DynamicLibrary.open('libtheprojectname.so'),
     TargetPlatform.iOS => DynamicLibrary.process(),
-    TargetPlatform.macOS => DynamicLibrary.open('libtheprojectname.dylib'),
+    TargetPlatform.macOS => DynamicLibrary.process(), // DynamicLibrary.open('libtheprojectname.dylib'),
     TargetPlatform.linux => DynamicLibrary.open('libtheprojectname.so'),
     TargetPlatform.windows => DynamicLibrary.open('theprojectname.dll'),
     _ => throw UnimplementedError()

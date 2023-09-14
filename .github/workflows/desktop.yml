@@ -14,17 +14,17 @@ jobs:
         os: [ ubuntu-latest, macos-13, windows-latest ]
         include:
           - os: ubuntu-latest
-            build_command: flutter build linux --verbose --release
+            build_command: flutter build linux --release --obfuscate --split-debug-info=symbols --verbose
             test_command: xvfb-run flutter test integration_test
             artifact_dir: build/linux
 
           - os: macos-13
-            build_command: flutter build macos --verbose --release
+            build_command: flutter build macos --release --obfuscate --split-debug-info=symbols --verbose
             test_command: flutter test integration_test
             artifact_dir: build/macos/Build/Products/Release
 
           - os: windows-latest
-            build_command: flutter build windows --verbose --release
+            build_command: flutter build windows --release --obfuscate --split-debug-info=symbols --verbose
             test_command: flutter test integration_test
             artifact_dir: build/windows/runner/Release
 
@@ -46,14 +46,10 @@ jobs:
 
       - run: flutter doctor -v
 
-      - run: flutter pub get
-        working-directory: ${{ github.workspace }}
-
-      - run: flutter pub get
-        working-directory: ${{ github.workspace }}/example
-
-      - run: flutter pub get
-        working-directory: ${{ github.workspace }}/cargokit/build_tool
+      - run: |
+          flutter pub get
+          flutter pub get -C example
+          flutter pub get -C cargokit/build_tool
 
       - run: flutter analyze
 
@@ -67,4 +63,5 @@ jobs:
         with:
           name: artifacts-${{ matrix.os }}
           path: |
+            ${{ github.workspace }}/example/symbols
             ${{ github.workspace }}/example/${{ matrix.artifact_dir }}
