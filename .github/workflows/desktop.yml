@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [ main ]
 
-name: desktop
+name: Build and test (desktop platforms)
 jobs:
   build:
     # See: https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
@@ -16,17 +16,17 @@ jobs:
           - os: ubuntu-latest
             build_command: flutter build linux --release --obfuscate --split-debug-info=symbols
             test_command: xvfb-run flutter test integration_test
-            artifact_dir: build/linux
+            artifact_dir: build/linux/x64/release/bundle
 
           - os: macos-13
             build_command: flutter build macos --release --obfuscate --split-debug-info=symbols
             test_command: flutter test integration_test
-            artifact_dir: build/macos
+            artifact_dir: build/macos/Build/Products/Release/*.app
 
           - os: windows-latest
             build_command: flutter build windows --release --obfuscate --split-debug-info=symbols
             test_command: flutter test integration_test
-            artifact_dir: build/windows
+            artifact_dir: build/windows/runner/Release
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -39,23 +39,29 @@ jobs:
           channel: stable
 
       # Ninja and GTK are required for building on Linux
-      - if: (matrix.os == 'ubuntu-latest')
+      - name: Install dependencies
+        if: (matrix.os == 'ubuntu-latest')
         run: |
           sudo apt-get update -y
           sudo apt-get install -y ninja-build libgtk-3-dev libblkid-dev
 
-      - run: flutter doctor -v
+      - name: Flutter doctor
+        run: flutter doctor -v
 
-      - run: |
+      - name: Flutter pub get
+        run: |
           flutter pub get
           flutter pub get -C example
           flutter pub get -C cargokit/build_tool
 
-      - run: flutter analyze
+      - name: Flutter analyze
+        run: flutter analyze
 
-      - run: cd example && ${{ matrix.build_command }}
+      - name: Flutter build
+        run: cd example && ${{ matrix.build_command }}
 
-      - run: cd example && ${{ matrix.test_command }}
+      - name: Flutter integration test
+        run: cd example && ${{ matrix.test_command }}
 
       - uses: actions/upload-artifact@v3
         with:

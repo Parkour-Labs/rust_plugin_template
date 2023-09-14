@@ -4,13 +4,13 @@ on:
   pull_request:
     branches: [ main ]
 
-name: android
+name: Build and test (Android)
 jobs:
   build:
     # See: https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
     strategy:
       matrix:
-        api-level: [29]
+        api-level: [ 29 ]
 
     runs-on: macos-13
     steps:
@@ -22,23 +22,27 @@ jobs:
         with:
           channel: stable
 
-      - run: flutter doctor -v
+      - name: Flutter doctor
+        run: flutter doctor -v
 
-      - run: |
+      - name: Flutter pub get
+        run: |
           flutter pub get
           flutter pub get -C example
           flutter pub get -C cargokit/build_tool
 
-      - run: flutter analyze
-
-      - run: cd example && flutter build appbundle --release --obfuscate --split-debug-info=symbols --verbose
+      - name: Flutter analyze
+        run: flutter analyze
 
       # See: https://github.com/ReactiveCircus/android-emulator-runner
       - name: Gradle cache
         uses: gradle/gradle-build-action@v2
 
+      - name: Flutter build
+        run: cd example && flutter build appbundle --release --obfuscate --split-debug-info=symbols
+
       # See: https://github.com/ReactiveCircus/android-emulator-runner
-      - name: AVD cache
+      - name: Android simulator cache
         uses: actions/cache@v3
         id: avd-cache
         with:
@@ -48,7 +52,7 @@ jobs:
           key: avd-${{ matrix.api-level }}
 
       # See: https://github.com/ReactiveCircus/android-emulator-runner
-      - name: create AVD and generate snapshot for caching
+      - name: Android simulator cache initialisation
         if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -59,7 +63,8 @@ jobs:
           script: echo "Generated AVD snapshot for caching."
 
       # See: https://github.com/ReactiveCircus/android-emulator-runner
-      - uses: reactivecircus/android-emulator-runner@v2
+      - name: Flutter integration test
+        uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
           force-avd-creation: false
@@ -72,4 +77,4 @@ jobs:
           name: artifacts-android
           path: |
             ${{ github.workspace }}/example/symbols
-            ${{ github.workspace }}/example/build/app
+            ${{ github.workspace }}/example/build/app/outputs/bundle/release
