@@ -37,6 +37,10 @@ jobs:
       # - name: Flutter build
       #   run: cd example && flutter build ios --release --obfuscate --split-debug-info=symbols
 
+      # See: https://github.com/flutter/flutter/issues/105913
+      - name: Pre-build
+        run: cd example && flutter build ios --debug --simulator
+
       # See: https://github.com/marketplace/actions/launch-ios-simulator
       - name: Launch iOS simulator
         uses: futureware-tech/simulator-action@v2
@@ -44,7 +48,7 @@ jobs:
           model: ${{ matrix.model }}
 
       - name: Flutter integration test
-        run: cd example && flutter test integration_test
+        run: cd example && flutter test integration_test --verbose
 
       # - uses: actions/upload-artifact@v3
       #   with:
