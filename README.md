@@ -14,9 +14,10 @@ Replace across the project **all occurrences** of `theprojectname` to a desired 
 
 This template uses the following structure:
 
-- `packages/theprojectname`: contains the native source code, and a `Cargo.toml` file for building that source code into a static or dynamic library.
-- `packages/flutter_theprojectname`: contains the Dart code that defines the API of the plugin, and which calls into the native code using `dart:ffi`.
-  - Platform folders (`android`, `ios`, `windows`, etc.): contains the build files for building and bundling the native code library with the platform application.
+- `lib`: contains the Dart code that defines the API of the plugin, and which calls into the native code using `dart:ffi`.
+- `native`: contains the native source code, and a `Cargo.toml` file for building that source code into a static or dynamic library.
+- Platform folders (`android`, `ios`, `windows`, etc.): contains the build files for building and bundling the native code library with the platform application.
+- Example folder (`example`): contains an example project.
 
 Build systems involved on different platforms:
 

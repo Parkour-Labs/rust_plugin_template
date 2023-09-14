@@ -22,10 +22,6 @@
 .settings/
 .vscode/
 
-# Rust/Cargo related
-/target/
-Cargo.lock
-
 # Flutter/Dart/Pub related
 **/doc/api/
 .dart_tool/
