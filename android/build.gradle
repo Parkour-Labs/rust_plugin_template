@@ -14,7 +14,7 @@ buildscript {
 
     dependencies {
         // The Cargo NDK Gradle Plugin knows how to build native code with the NDK.
-        classpath 'gradle.plugin.com.github.willir.rust:plugin:0.3.4'
+        // classpath 'gradle.plugin.com.github.willir.rust:plugin:0.3.4'
     }
 }
 
@@ -26,10 +26,11 @@ rootProject.allprojects {
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.willir.rust.cargo-ndk-android'
+// apply plugin: 'com.github.willir.rust.cargo-ndk-android'
+apply from: '../cargokit/gradle/plugin.gradle'
 
 android {
-    if (project.android.hasProperty("namespace")) {
+    if (project.android.hasProperty('namespace')) {
         namespace 'com.example.theprojectname'
     }
 
@@ -39,22 +40,7 @@ android {
 
     // Bumping the plugin ndkVersion requires all clients of this plugin to bump
     // the version in their app and to download a newer version of the NDK.
-    ndkVersion "23.1.7779620"
-
-    // // Invoke the shared CMake build with the Android Gradle Plugin.
-    // externalNativeBuild {
-    //     cmake {
-    //         path "../src/CMakeLists.txt"
-    //
-    //         // The default CMake version for the Android Gradle Plugin is 3.10.2.
-    //         // https://developer.android.com/studio/projects/install-ndk#vanilla_cmake
-    //         //
-    //         // The Flutter tooling requires that developers have CMake 3.10 or later
-    //         // installed. You should not increase this version, as doing so will cause
-    //         // the plugin to fail to compile for some customers of the plugin.
-    //         // version "3.10.2"
-    //     }
-    // }
+    ndkVersion '23.1.7779620'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -68,6 +54,13 @@ android {
 
 // Invoke the Cargo build with the Cargo NDK Gradle Plugin.
 // See: https://github.com/willir/cargo-ndk-android-gradle#configuration
-cargoNdk {
-    module = '../native/'
+// cargoNdk {
+//     module = '../native/'
+// }
+
+// Invoke the Cargo build with `cargokit`.
+// See: https://matejknopp.com/post/flutter_plugin_in_rust_with_no_prebuilt_binaries/
+cargokit {
+    manifestDir = '../native/'
+    libname = 'theprojectname'
 }

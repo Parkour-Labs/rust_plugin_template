@@ -15,15 +15,21 @@ A new Flutter FFI plugin project.
 
   s.dependency 'Flutter'
   s.platform = :ios, '11.0'
-  s.source = { :path => '.' }     # Property is required but unused
-  s.source_files = 'Classes/**/*' # Property is required but unused
+  s.source = { :path => '.' }
+  s.source_files = 'Classes/**/*'
   s.script_phase = {
     :name => 'Build native library',
-    :script => 'sh build_script.sh',
+    :script => 'sh "$PODS_TARGET_SRCROOT/../cargokit/build_pod.sh" ../native/ theprojectname',
     :execution_position => :before_compile,
-    :output_files => ["${BUILT_PRODUCTS_DIR}/theprojectname.xcframework"],
+    :input_files => ['${BUILT_PRODUCTS_DIR}/cargokit_phony'],
+    # Let XCode know that the static library referenced in -force_load below is
+    # created by this build step.
+    :output_files => ["${BUILT_PRODUCTS_DIR}/libtheprojectname.a"],
   }
-  # Flutter.framework does not contain a i386 slice.
-  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
+  s.pod_target_xcconfig = {
+    'DEFINES_MODULE' => 'YES',
+    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386', # Flutter.framework does not contain a i386 slice.
+    'OTHER_LDFLAGS' => '-force_load ${BUILT_PRODUCTS_DIR}/libtheprojectname.a',
+  }
   s.swift_version = '5.0'
 end
