@@ -42,7 +42,7 @@ jobs:
 
       # See: https://github.com/ReactiveCircus/android-emulator-runner
       - name: Gradle cache
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v2.8.0
 
       # - name: Flutter build
       #   run: cd example && flutter build appbundle --release --obfuscate --split-debug-info=symbols

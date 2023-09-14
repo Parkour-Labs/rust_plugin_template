@@ -6,7 +6,6 @@ import 'package:theprojectname/native_library.dart';
 /// This can be done with `flutter test integration_test`.
 void main() {
   test('function call', () {
-    print('ggggggg');
     assert(NativeBindings(getNativeLibrary()).add(2, 3) == 5);
   });
 }
