@@ -1,4 +1,4 @@
-# theprojectname_example
+# Example project
 
 Demonstrates how to use the theprojectname plugin.
 

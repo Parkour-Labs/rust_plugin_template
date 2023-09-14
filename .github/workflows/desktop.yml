@@ -18,7 +18,7 @@ jobs:
             test_command: xvfb-run flutter test integration_test
             artifact_dir: build/linux
 
-          - os: macos-latest
+          - os: macos-13
             build_command: flutter build macos --verbose --release
             test_command: flutter test integration_test
             artifact_dir: build/macos/Build/Products/Release

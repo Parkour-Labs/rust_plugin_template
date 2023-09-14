@@ -1,5 +1,7 @@
 # Rust Flutter FFI plugin template
 
+[![Build and test (desktop platforms)](https://github.com/Parkour-Labs/rust_plugin_template/actions/workflows/desktop.yml/badge.svg)](https://github.com/Parkour-Labs/rust_plugin_template/actions/workflows/desktop.yml)
+
 Shared template for all our Rust Flutter FFI plugins.
 
 Contains configurations for building and bundling on Windows, Linux, Android, iOS and macOS. Web is not supported.
