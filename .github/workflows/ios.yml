@@ -4,13 +4,13 @@ on:
   pull_request:
     branches: [ main ]
 
-name: Test (iOS)
+name: Integration test (iOS)
 jobs:
   build:
     # See: https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
     strategy:
       matrix:
-        os_version: [ ">=11.0" ]
+        model: [ "iPhone 14" ]
 
     runs-on: macos-13
     steps:
@@ -41,9 +41,7 @@ jobs:
       - name: Launch iOS simulator
         uses: futureware-tech/simulator-action@v2
         with:
-          model: "iPhone 14"
-
-      - run: flutter devices
+          model: ${{ matrix.model }}
 
       - name: Flutter integration test
         run: cd example && flutter test integration_test

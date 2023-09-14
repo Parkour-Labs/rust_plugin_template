@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [ main ]
 
-name: Build and test (desktop platforms)
+name: Integration test (desktop platforms)
 jobs:
   build:
     # See: https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
@@ -57,15 +57,15 @@ jobs:
       - name: Flutter analyze
         run: flutter analyze
 
-      - name: Flutter build
-        run: cd example && ${{ matrix.build_command }}
+      # - name: Flutter build
+      #   run: cd example && ${{ matrix.build_command }}
 
       - name: Flutter integration test
         run: cd example && ${{ matrix.test_command }}
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: artifacts-${{ matrix.os }}
-          path: |
-            ${{ github.workspace }}/example/symbols
-            ${{ github.workspace }}/example/${{ matrix.artifact_dir }}
+      # - uses: actions/upload-artifact@v3
+      #   with:
+      #     name: artifacts-${{ matrix.os }}
+      #     path: |
+      #       ${{ github.workspace }}/example/symbols
+      #       ${{ github.workspace }}/example/${{ matrix.artifact_dir }}

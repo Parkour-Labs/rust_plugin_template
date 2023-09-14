@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [ main ]
 
-name: Build and test (Android)
+name: Integration test (Android)
 jobs:
   build:
     # See: https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
@@ -34,8 +34,8 @@ jobs:
       - name: Flutter analyze
         run: flutter analyze
 
-      - name: Flutter build
-        run: cd example && flutter build appbundle --release --obfuscate --split-debug-info=symbols
+      # - name: Flutter build
+      #   run: cd example && flutter build appbundle --release --obfuscate --split-debug-info=symbols
 
       # See: https://github.com/ReactiveCircus/android-emulator-runner
       - name: Android simulator cache
@@ -68,9 +68,9 @@ jobs:
           disable-animations: true
           script: cd example && flutter test integration_test
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: artifacts-android
-          path: |
-            ${{ github.workspace }}/example/symbols
-            ${{ github.workspace }}/example/build/app/outputs/bundle/release
+      # - uses: actions/upload-artifact@v3
+      #   with:
+      #     name: artifacts-android
+      #     path: |
+      #       ${{ github.workspace }}/example/symbols
+      #       ${{ github.workspace }}/example/build/app/outputs/bundle/release
