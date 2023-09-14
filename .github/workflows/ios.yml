@@ -34,6 +34,12 @@ jobs:
       - name: Flutter analyze
         run: flutter analyze
 
+      - name: Flutter build cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}/example/build
+          key: flutter-build-ios
+
       # - name: Flutter build
       #   run: cd example && flutter build ios --release --obfuscate --split-debug-info=symbols
 
