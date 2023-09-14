@@ -10,9 +10,17 @@ Contains configurations for building and bundling on Windows, Linux, Android, iO
 
 ## Getting Started
 
-Replace across the project **all occurrences** of `theprojectname` to a desired project name. The name should contain only lowercase letters and underscores.
+Replace across the project **all occurrences** of `theprojectname` to a desired project name. The name should contain only lowercase letters and underscores. This can be done via a small Rust script in `__init__`:
 
-(TODO: provide a script for renaming)
+```sh
+cd __init__
+
+# Replace in `..` all occurrences of `theprojectname` to `your_project_name`.
+# The folders `__init__` and `.git` will be ignored.
+cargo run .. your_project_name
+```
+
+The `__init__` folder may now be deleted.
 
 ## Project structure
 
