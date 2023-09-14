@@ -34,10 +34,6 @@ jobs:
       - name: Flutter analyze
         run: flutter analyze
 
-      # See: https://github.com/ReactiveCircus/android-emulator-runner
-      - name: Gradle cache
-        uses: gradle/gradle-build-action@v2
-
       - name: Flutter build
         run: cd example && flutter build appbundle --release --obfuscate --split-debug-info=symbols
 

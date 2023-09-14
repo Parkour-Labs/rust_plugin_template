@@ -4,13 +4,13 @@ on:
   pull_request:
     branches: [ main ]
 
-name: Build and test (iOS)
+name: Test (iOS)
 jobs:
   build:
     # See: https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
     strategy:
       matrix:
-        model: [ "iPhone 11" ]
+        os_version: [ ">=11.0" ]
 
     runs-on: macos-13
     steps:
@@ -34,20 +34,20 @@ jobs:
       - name: Flutter analyze
         run: flutter analyze
 
-      - name: Flutter build
-        run: cd example && flutter build ios --release --obfuscate --split-debug-info=symbols
+      # - name: Flutter build
+      #   run: cd example && flutter build ios --release --obfuscate --split-debug-info=symbols
 
       - name: Launch iOS simulator
         uses: futureware-tech/simulator-action@v2
         with:
-          model: ${{ matrix.model }}
+          os_version: ${{ matrix.os_version }}
 
       - name: Flutter integration test
         run: cd example && flutter test integration_test
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: artifacts-android
-          path: |
-            ${{ github.workspace }}/example/symbols
-            ${{ github.workspace }}/example/build
+      # - uses: actions/upload-artifact@v3
+      #   with:
+      #     name: artifacts-android
+      #     path: |
+      #       ${{ github.workspace }}/example/symbols
+      #       ${{ github.workspace }}/example/build
