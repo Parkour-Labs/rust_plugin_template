@@ -21,8 +21,8 @@ This template uses the following structure:
 
 Build systems involved on different platforms:
 
-- Android (cross-compile): Flutter → Gradle (`build.gradle`) → Cargo NDK → Cargo
-- iOS (cross-compile): Flutter → CocoaPods (`*.podspec`) → `build_script.sh` → Cargo
-- macOS (cross-compile): Flutter → CocoaPods (`*.podspec`) → `build_script.sh` → Cargo
+- Android (cross-compile): Flutter → Gradle (`build.gradle`) → CargoKit → Cargo
+- iOS (cross-compile): Flutter → CocoaPods (`*.podspec`) → CargoKit → Cargo
+- macOS (cross-compile): Flutter → CocoaPods (`*.podspec`) → CargoKit → Cargo
 - Linux: Flutter → CMake (`CMakeLists.txt`) → Cargo
 - Windows: Flutter → CMake (`CMakeLists.txt`) → Cargo
