@@ -34,12 +34,6 @@ jobs:
       - name: Flutter analyze
         run: flutter analyze
 
-      - name: Flutter build cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ github.workspace }}/example/build
-          key: flutter-build-android
-
       # See: https://github.com/ReactiveCircus/android-emulator-runner
       - name: Gradle cache
         uses: gradle/gradle-build-action@v2.8.0

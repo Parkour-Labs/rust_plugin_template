@@ -57,12 +57,6 @@ jobs:
       - name: Flutter analyze
         run: flutter analyze
 
-      - name: Flutter build cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ github.workspace }}/example/build
-          key: flutter-build-${{ matrix.os }}
-
       # - name: Flutter build
       #   run: cd example && ${{ matrix.build_command }}
 
