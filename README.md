@@ -2,6 +2,8 @@
 
 [![android](https://github.com/Parkour-Labs/rust_plugin_template/actions/workflows/android.yml/badge.svg)](https://github.com/Parkour-Labs/rust_plugin_template/actions/workflows/android.yml)
 
+[![ios](https://github.com/Parkour-Labs/rust_plugin_template/actions/workflows/ios.yml/badge.svg)](https://github.com/Parkour-Labs/rust_plugin_template/actions/workflows/ios.yml)
+
 [![desktop](https://github.com/Parkour-Labs/rust_plugin_template/actions/workflows/desktop.yml/badge.svg)](https://github.com/Parkour-Labs/rust_plugin_template/actions/workflows/desktop.yml)
 
 Shared template for all our Rust Flutter FFI plugins.
